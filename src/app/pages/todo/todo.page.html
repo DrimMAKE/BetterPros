@@ -1,0 +1,63 @@
+<ion-header >
+  <ion-toolbar color="color">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="base">ToDo for You</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar color="color">
+    <ion-segment>
+      <ion-segment-button>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+  <form formGroup="tasksform">
+
+    <ion-item>
+      <div>
+        <ion-input type="text" placeholder="Task" [(ngModel)]="taskName"></ion-input>
+      </div>
+    </ion-item>
+    <ion-item>
+      <div slot="start">
+          <ion-icon name="calendar" color="success"> </ion-icon>
+      </div>
+      <div>
+        <ion-datetime  displayFormat="MM/DD/YYYY" min="2021" max="2030" [(ngModel)]="taskDate"></ion-datetime>
+      </div>
+      <div slot="end">
+        <ion-button class="upButton" color="success" (click)="addTask()">
+          <ion-icon name="add-circle-outline"> </ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+
+  </form>
+    
+    <br><br><br>
+
+    <div padding>
+      <ion-list>
+        <ion-item *ngFor="let todo of taskList; let i = index">
+        {{todo}}
+          <div slot="end">
+            <ion-button class="upButton" color="danger" (click)="deleteTask(i)">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+
+
+
+
+
+</ion-content>

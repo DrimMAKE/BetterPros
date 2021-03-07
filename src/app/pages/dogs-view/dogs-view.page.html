@@ -1,0 +1,16 @@
+<ion-content fullscreen>
+
+  <ion-fab class="green" vertical="top" horizontal="end" slot="fixed">
+      <ion-icon (click)="close()" name="close"></ion-icon>
+  </ion-fab>
+
+  <ion-slides #slider>
+    <ion-slide (pan)="close()">
+      <div class="swiper-zoom-container">
+
+        <img [src]="dogView">
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

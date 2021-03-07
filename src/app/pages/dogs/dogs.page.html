@@ -1,0 +1,101 @@
+<ion-header >
+  <ion-toolbar color="color">
+    <ion-title class="base">Dogs for You</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar color="color">
+    <ion-segment [(ngModel)]="inPages">
+      <ion-segment-button class="button" value="page1">
+        <ion-label>View Breeds</ion-label>
+      </ion-segment-button>
+      <ion-segment-button class="button" value="page2">
+        <ion-label>Your list to get one</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="full" *ngIf="inPages==='page1'">
+    
+    <ion-item class="green">
+      <ion-label>Select your favorite Breed</ion-label>
+      <ion-select [(ngModel)]="breed" (ionChange)="findImages(breed)">
+        <ion-select-option>all</ion-select-option>
+        <ion-select-option *ngFor="let name of breeds" [value]="name">{{name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-slides class="slide" *ngIf="imagesFavorites" [options]="slideOpts">
+      <ion-slide *ngFor="let url of imagesFavorites">
+        <img [src]="url">
+      </ion-slide>
+    </ion-slides>
+    
+    
+    <div *ngIf="imagesDogs" class="pins2">
+      <ion-card class="pin2" *ngFor="let url of imagesDogs">
+        <img [src]="url" (click)="openDogView(url)">
+      </ion-card>
+    </div>
+    
+  </div>
+  
+  <div class="full" *ngIf="inPages==='page2'">
+
+    <form>
+
+    <ion-item>
+      <div>
+        <ion-input type="text" placeholder="Task" [(ngModel)]="taskName"></ion-input>
+      </div>
+    </ion-item>
+    <ion-item>
+      <div slot="start">
+          <ion-icon name="calendar" color="success"> </ion-icon>
+      </div>
+      <div>
+        <ion-datetime  displayFormat="MM/DD/YYYY" min="2021" max="2030" [(ngModel)]="taskDate"></ion-datetime>
+      </div>
+      <div slot="end">
+        <ion-button class="upButton" color="success" (click)="addTask()">
+          <ion-icon name="add-circle-outline"> </ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+
+  </form>
+    
+    <br><br><br>
+
+    <div padding>
+      <ion-list>
+        <ion-item *ngFor="let todo of taskList; let i = index">
+        {{todo}}
+          <div slot="end">
+            <ion-button class="upButton" color="danger" (click)="deleteTask(i)">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </div>
+  
+</ion-content>
+
+
+<ion-footer *ngIf="inPages==='page2'">
+  <ion-toolbar>
+    <ion-title>
+      View in another page
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="newPage(taskList)">
+        <ion-icon color="success" name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
